@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小游戏 cc · 点击画布</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; text-align: center; background: #f2fbf4; margin: 0; padding: 20px; }
+    canvas { background: #ffffff; border: 2px solid #333; cursor: crosshair; }
+    button { font-size: 1rem; padding: 6px 16px; margin: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← 返回作品首页</a></p>
+  <h1>点击画布</h1>
+  <p>在画布上点击，留下彩色圆点。</p>
+  <canvas id="c" width="480" height="320"></canvas><br>
+  <button onclick="clearCanvas()">清空</button>
+  <script>
+    const c = document.getElementById('c');
+    const ctx = c.getContext('2d');
+    const colors = ['#e53935', '#1e88e5', '#43a047', '#fdd835', '#8e24aa'];
+    c.addEventListener('click', e => {
+      const r = c.getBoundingClientRect();
+      ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+      ctx.beginPath();
+      ctx.arc(e.clientX - r.left, e.clientY - r.top, 10 + Math.random() * 15, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    function clearCanvas() { ctx.clearRect(0, 0, c.width, c.height); }
+  </script>
+</body>
+</html>

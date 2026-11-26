@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小游戏 aa · 打地鼠</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; text-align: center; background: #f4f8ff; margin: 0; padding: 20px; }
+    #board { display: grid; grid-template-columns: repeat(3, 100px); gap: 10px; justify-content: center; margin: 20px auto; }
+    .hole { width: 100px; height: 100px; background: #d9e4f5; border-radius: 50%; border: none; font-size: 40px; cursor: pointer; }
+    .hole.active { background: #ffb74d; }
+    #info { font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← 返回作品首页</a></p>
+  <h1>打地鼠</h1>
+  <p id="info">得分：0　时间：30</p>
+  <div id="board"></div>
+  <button onclick="start()">开始游戏</button>
+  <script>
+    const board = document.getElementById('board');
+    const info = document.getElementById('info');
+    let score = 0, time = 30, timer = null, moleTimer = null, current = -1;
+
+    for (let i = 0; i < 9; i++) {
+      const b = document.createElement('button');
+      b.className = 'hole';
+      b.onclick = () => {
+        if (i === current) { score++; current = -1; b.classList.remove('active'); update(); }
+      };
+      board.appendChild(b);
+    }
+
+    function update() { info.textContent = `得分：${score}　时间：${time}`; }
+
+    function popMole() {
+      const holes = board.children;
+      if (current >= 0) holes[current].classList.remove('active');
+      current = Math.floor(Math.random() * 9);
+      holes[current].classList.add('active');
+    }
+
+    function start() {
+      clearInterval(timer); clearInterval(moleTimer);
+      score = 0; time = 30; update();
+      moleTimer = setInterval(popMole, 800);
+      timer = setInterval(() => {
+        time--; update();
+        if (time <= 0) {
+          clearInterval(timer); clearInterval(moleTimer);
+          if (current >= 0) board.children[current].classList.remove('active');
+          current = -1;
+          alert(`游戏结束！得分：${score}`);
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

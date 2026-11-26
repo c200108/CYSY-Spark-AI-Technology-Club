@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小游戏 bb · 猜数字</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; text-align: center; background: #fff8f0; margin: 0; padding: 20px; }
+    input { font-size: 1.2rem; width: 100px; padding: 6px; text-align: center; }
+    button { font-size: 1rem; padding: 6px 16px; margin: 4px; cursor: pointer; }
+    #msg { font-size: 1.3rem; margin: 20px; min-height: 2em; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← 返回作品首页</a></p>
+  <h1>猜数字（1 到 100）</h1>
+  <p>我想了一个数字，你能猜中吗？</p>
+  <input id="guess" type="number" min="1" max="100">
+  <button onclick="check()">猜一下</button>
+  <button onclick="reset()">重新开始</button>
+  <p id="msg"></p>
+  <p>已猜次数：<span id="count">0</span></p>
+  <script>
+    let target, count;
+    function reset() {
+      target = Math.floor(Math.random() * 100) + 1;
+      count = 0;
+      document.getElementById('count').textContent = count;
+      document.getElementById('msg').textContent = '新游戏开始了！';
+      document.getElementById('guess').value = '';
+    }
+    function check() {
+      const v = Number(document.getElementById('guess').value);
+      const msg = document.getElementById('msg');
+      if (!Number.isInteger(v) || v < 1 || v > 100) { msg.textContent = '请输入 1 到 100 之间的整数'; return; }
+      count++;
+      document.getElementById('count').textContent = count;
+      if (v < target) msg.textContent = '太小了，再试试！';
+      else if (v > target) msg.textContent = '太大了，再试试！';
+      else msg.textContent = `猜对了！你用了 ${count} 次。`;
+    }
+    reset();
+  </script>
+</body>
+</html>
