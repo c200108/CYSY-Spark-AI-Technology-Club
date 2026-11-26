@@ -1,8 +1,7 @@
 {
-  "installCommand": "npx -y yarn@1.22.22 install --frozen-lockfile --ignore-engines",
-  "buildCommand": "npx -y yarn@1.22.22 build",
+  "installCommand": "echo skip install, using prebuilt out/",
+  "buildCommand": "echo skip build, using prebuilt out/",
   "outputDirectory": "./out",
-  "nodeVersion": "22.21.1",
   "headers": [
     {
       "source": "/*",

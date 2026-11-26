@@ -1,0 +1,1 @@
+globalThis.addEventListener("message",e=>{let{data:i}=e;globalThis.importScripts("/System/libheif/libheif-bundle.js");let{libheif:t}=globalThis,{HeifDecoder:a}=t(),[l]=(new a).decode(i),s=l.get_width(),d=l.get_height();l.display({data:new Uint8ClampedArray(s*d*4),height:d,width:s},e=>{let{data:i}=e;return globalThis.postMessage(new ImageData(i,s,d))})},{passive:!0}),_N_E={};

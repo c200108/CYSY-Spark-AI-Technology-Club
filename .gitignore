@@ -1,7 +1,6 @@
 .next
 .swc
 certificates
-out
 next-env.d.ts
 *.tsbuildinfo
 .env*
